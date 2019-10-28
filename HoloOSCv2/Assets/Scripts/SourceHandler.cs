@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Microsoft.MixedReality.Toolkit.Utilities.Solvers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class SourceHandler : MonoBehaviour
             GameObject src = Instantiate(source, spawnPos, Quaternion.identity);
             src.name = "Source" + sources.Count;
             src.transform.parent = this.transform;
+            src.GetComponent<SolverHandler>().TransformOverride = src.transform.parent;
             src.GetComponent<SourceObject>().SetID(sources.Count);
             sources.Add(src);
         }
