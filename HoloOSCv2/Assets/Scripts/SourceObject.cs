@@ -18,13 +18,16 @@ public class SourceObject : MonoBehaviour
         output = handler.GetComponent<OSCOutput>();
     }
     public float  GetElevation() {
-        float radius = GetComponent<SphereCollider>().radius;
-        float angle = Mathf.Asin(trans.localPosition.y / radius)*Mathf.Rad2Deg % 360;
-        return angle > 180 ? angle - 360 : angle;
+        Vector3 eulerAngles = transform.rotation.eulerAngles;
+        float angle = eulerAngles.x;
+        angle = angle > 180 ? angle - 360 : angle;
+        return angle *= -1;
     }
     public float GetAzimuth() {
-        float angle = Mathf.Atan2(trans.localPosition.x, trans.localPosition.z) * Mathf.Rad2Deg % 360;
-        return angle > 180 ? angle - 360 : angle;
+        Vector3 eulerAngles = transform.rotation.eulerAngles;
+        float angle = eulerAngles.y;
+        angle = angle > 180 ? angle - 360 : angle;
+        return angle *= -1;
     }
     public void sendMessageToOSCHandler() {
         string[] data = new string[2];
