@@ -9,17 +9,15 @@ public class ResetScene : MonoBehaviour
     const string azimuth = "/MultiEncoder/azimuth";
     const string elevation = "/MultiEncoder/elevation";
 
-
-    void Start()
-    {
-       
+    void Awake()
+    {   
+       StartCoroutine(ExampleCoroutine());
     }
 
-    void Update()
-    {
-
+    public void RestartScene()
+    {   
+        SceneManager.LoadScene("DevScene");
     }
-
 
     public void updateSources()
     {
@@ -32,10 +30,12 @@ public class ResetScene : MonoBehaviour
       }
     }
 
-    public void RestartScene()
-    {
-        SceneManager.LoadScene("DevScene");
+    IEnumerator ExampleCoroutine()
+   {
+        //waits for 0.001 seconds before updating Sources
+        yield return new WaitForSeconds(0.001F);
         updateSources();
-    }
+
+   }
     
 }
